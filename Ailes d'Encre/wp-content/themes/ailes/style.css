@@ -1,0 +1,24 @@
+/* 
+Theme Name: Ailes d'Encre
+Author: AB
+Description: Thème pour librairie en ligne
+Version: 1.0
+Tags: bootstrap, css, wordpress, jquery, php, reponsive
+*/
+
+a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #ababf0;
+}
+
+img {
+    height: auto !important;
+    object-fit: contain;
+    width: 100% !important;
+}
+
