@@ -45,16 +45,6 @@ class Blocksy_Static_Css_Files {
 			],
 
 			[
-				'id' => 'ct-back-to-top-styles',
-				'url' => '/static/bundle/back-to-top.min.css',
-				'enabled' => (
-					is_customize_preview()
-					||
-					get_theme_mod('has_back_top', 'no') === 'yes'
-				)
-			],
-
-			[
 				'id' => 'ct-main-rtl-styles',
 				'url' => '/static/bundle/main-rtl.min.css',
 				'enabled' => is_rtl()
@@ -97,6 +87,13 @@ class Blocksy_Static_Css_Files {
 				'url' => '/static/bundle/tutor.min.css',
 				'deps' => ['ct-main-styles'],
 				'enabled' => function_exists('tutor_course_enrolled_lead_info')
+			],
+
+			[
+				'id' => 'ct-tribe-events-styles',
+				'url' => '/static/bundle/tribe-events.min.css',
+				'deps' => ['ct-main-styles'],
+				'enabled' => class_exists('Tribe__Events__Main')
 			],
 
 			[
@@ -212,13 +209,6 @@ class Blocksy_Static_Css_Files {
 				'url' => '/static/bundle/jet-woo-builder.min.css',
 				'deps' => ['ct-main-styles'],
 				'enabled' => class_exists('Jet_Woo_Builder')
-			],
-
-			[
-				'id' => 'ct-tribe-events-styles',
-				'url' => '/static/bundle/tribe-events.min.css',
-				'deps' => ['ct-main-styles'],
-				'enabled' => class_exists('Tribe__Events__Main')
 			],
 
 			[

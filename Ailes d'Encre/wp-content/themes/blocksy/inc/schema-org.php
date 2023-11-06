@@ -107,6 +107,13 @@ if (! function_exists('blocksy_schema_org_definitions')) {
 			}
 		}
 
+		if ($place === 'creative_work:related_posts') {
+			$value = [
+				'itemscope' => 'itemscope',
+				'itemtype' => 'https://schema.org/CreativeWork'
+			];
+		}
+
 		if ($place === 'header') {
 			$value = [
 				'itemscope' => '',

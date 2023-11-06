@@ -219,17 +219,13 @@ class Blocksy_Dynamic_Css {
 
 		$styles_descriptor = blocksy_akg('styles_descriptor', $post_atts, null);
 
-		$current_saved_version = 1;
+		$current_saved_version = $this->get_css_version();
 
 		if ($styles_descriptor && isset($styles_descriptor['version'])) {
 			$current_saved_version = intval($styles_descriptor['version']);
 		}
 
-		if (
-			! $styles_descriptor
-			||
-			$current_saved_version !== $this->get_css_version()
-		) {
+		if ($current_saved_version !== $this->get_css_version()) {
 			$styles_descriptor = $this->maybe_set_single_post_styles_descriptor([
 				'post_id' => $post_id,
 				'atts' => $post_atts
@@ -294,26 +290,18 @@ class Blocksy_Dynamic_Css {
 			'prefix' => blocksy_manager()->screen->get_admin_prefix($post_type)
 		]);
 
-		$descriptor['styles']['desktop'] .= $css->build_css_structure();
-		$descriptor['styles']['tablet'] .= $tablet_css->build_css_structure();
-		$descriptor['styles']['mobile'] .= $mobile_css->build_css_structure();
+		$descriptor['styles']['desktop'] .= trim($css->build_css_structure());
+		$descriptor['styles']['tablet'] .= trim(
+			$tablet_css->build_css_structure()
+		);
+		$descriptor['styles']['mobile'] .= trim(
+			$mobile_css->build_css_structure()
+		);
 
 		$descriptor['google_fonts'] = $m->get_matching_google_fonts();
 		$descriptor['version'] = $this->get_css_version();
 
-		foreach ($descriptor['styles'] as $key => $style) {
-			if (empty($style)) {
-				continue;
-			}
-
-			return $descriptor;
-		}
-
-		if (! empty($descriptor['google_fonts'])) {
-			return $descriptor;
-		}
-
-		return null;
+		return $descriptor;
 	}
 
 	public function maybe_get_global_styles_descriptor() {

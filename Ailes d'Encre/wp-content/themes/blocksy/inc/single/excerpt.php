@@ -26,7 +26,7 @@ if (! function_exists('blocksy_trim_excerpt')) {
 				$match_result = [];
 
 				preg_match(
-					'/^[\p{Latin}\p{Common}\p{Greek}\p{Cyrillic}\p{Georgian}\p{Old_Turkic}]+$/u',
+					'/^[\p{Latin}\p{Common}\p{Greek}\p{Cyrillic}\p{Georgian}\p{Old_Turkic}\p{Devanagari}]+$/u',
 					$excerpt,
 					$match_result
 				);

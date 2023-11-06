@@ -132,6 +132,11 @@ class Blocksy_Screen_Manager {
 			$result[] = $cpt . '_single';
 		}
 
+		if (class_exists('Tribe__Events__Main')) {
+			$result[] = 'tribe_events_single';
+			$result[] = 'tribe_events_archive';
+		}
+
 		return $result;
 	}
 
@@ -198,21 +203,23 @@ class Blocksy_Screen_Manager {
 
 		$actual_prefix = null;
 
-		if (function_exists('is_bbpress') && (
-			get_post_type() === 'forum'
-			||
-			get_post_type() === 'topic'
-			||
-			get_post_type() === 'reply'
-			||
-			get_query_var('post_type') === 'forum'
-			||
-			bbp_is_topic_tag()
-			||
-			bbp_is_topic_tag_edit()
-			||
-			is_bbpress()
-		)) {
+		if (
+			function_exists('is_bbpress') && (
+				get_post_type() === 'forum'
+				||
+				get_post_type() === 'topic'
+				||
+				get_post_type() === 'reply'
+				||
+				get_query_var('post_type') === 'forum'
+				||
+				bbp_is_topic_tag()
+				||
+				bbp_is_topic_tag_edit()
+				||
+				is_bbpress()
+			)
+		) {
 			$actual_prefix = 'bbpress_single';
 		}
 
@@ -315,6 +322,46 @@ class Blocksy_Screen_Manager {
 			} else {
 				$actual_prefix = 'blog';
 			}
+		}
+
+		if (
+			class_exists('Tribe__Events__Main')
+			&&
+			tribe_is_event()
+		) {
+			$actual_prefix = 'tribe_events_single';
+		}
+
+		if (
+			class_exists('Tribe__Events__Main')
+			&&
+			(
+				tribe_is_event()
+				||
+				is_singular('tribe_event_series')
+				||
+				is_singular('tribe_organizer')
+				||
+				tribe_is_venue()
+			)
+		) {
+			$actual_prefix = 'tribe_events_single';
+		}
+
+		if (
+			class_exists('Tribe__Events__Main')
+			&&
+			(
+				tribe_is_events_home()
+				||
+				tribe_is_showing_all()
+				||
+				is_tax('tec_venue_category')
+				||
+				is_archive('tribe_events')
+			)
+		) {
+			$actual_prefix = 'tribe_events_archive';
 		}
 
 		$actual_post_type = get_query_var('post_type');

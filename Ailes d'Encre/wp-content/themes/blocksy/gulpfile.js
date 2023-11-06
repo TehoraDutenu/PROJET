@@ -26,6 +26,7 @@ const wpExternals = {
 	'@wordpress/api-fetch': 'window.wp.apiFetch',
 	'@wordpress/widgets': 'window.wp.widgets',
 	'@wordpress/block-library': 'window.wp.blockLibrary',
+	'@wordpress/private-apis': 'window.wp.privateApis',
 	'blocksy-options': 'window.blocksyOptions',
 	react: 'React',
 	'react-dom': 'ReactDOM',

@@ -39,6 +39,10 @@ if (! isset($is_tutorlms)) {
 	$is_tutorlms = false;
 }
 
+if (! isset($is_tribe_events)) {
+	$is_tribe_events = false;
+}
+
 if (! isset($is_woo)) {
 	$is_woo = false;
 }
@@ -97,7 +101,7 @@ if ($is_author) {
 if (
 	(
 		$is_single || $is_home
-	) && !$is_bbpress
+	) && ! $is_bbpress
 ) {
 	$custom_description_layer_name = __('Excerpt', 'blocksy');
 }
@@ -120,7 +124,7 @@ $default_hero_elements[] = array_merge([
 	] : []
 ));
 
-if (! $is_tutorlms) {
+if (! $is_tutorlms && ! $is_tribe_events) {
 	$default_hero_elements[] = [
 		'id' => 'custom_description',
 		'enabled' => $prefix !== 'product_',
@@ -135,7 +139,7 @@ if (! $is_tutorlms) {
 if (
 	(
 		$is_single || $is_author
-	) && !$is_bbpress && !$is_tutorlms
+	) && !$is_bbpress && !$is_tutorlms && !$is_tribe_events
 ) {
 	$default_hero_elements[] = [
 		'id' => 'custom_meta',

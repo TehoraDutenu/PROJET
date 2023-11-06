@@ -133,6 +133,18 @@ do_action( 'woocommerce_before_cart' ); ?>
 									}
 
 									echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
+
+									if (class_exists('WCS_ATT_Display_Cart')) {
+										add_filter(
+											'woocommerce_cart_item_price',
+											array(
+												'WCS_ATT_Display_Cart',
+												'show_cart_item_subscription_options'
+											),
+											1000,
+											3
+										);
+									}
 								?>
 
 								<?php

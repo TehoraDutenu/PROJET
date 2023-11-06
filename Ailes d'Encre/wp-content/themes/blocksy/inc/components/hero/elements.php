@@ -240,12 +240,7 @@ foreach ($hero_elements as $index => $single_hero_element) {
 			$title = blocksy_simple_image(
 				apply_filters(
 					'blocksy:hero:title:author:author-avatar-url',
-					get_avatar_url(
-						blocksy_get_author_id(),
-						[
-							'size' => $avatar_size
-						]
-					)
+					blocksy_get_avatar_url($avatar_size, blocksy_get_author_id())
 				),
 				[
 					'tag_name' => 'span',

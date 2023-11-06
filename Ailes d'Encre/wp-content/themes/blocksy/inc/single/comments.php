@@ -194,10 +194,7 @@ function blocksy_custom_comment_template($comment, $args, $depth) {
 						}
 
 						echo blocksy_simple_image(
-							get_avatar_url(
-								$comment,
-								['size' => $args['avatar_size']]
-							),
+							blocksy_get_avatar_url($args['avatar_size'], $comment->user_id),
 							[
 								'tag_name' => 'figure',
 								'img_atts' => [

@@ -79,7 +79,11 @@ class Blocksy_Custom_Post_Types {
 				'ld-exam',
 				'groups',
 
-				// 'tribe_events',
+				'tribe_events',
+				'tribe_event_series',
+				'tribe_venue',
+				'tribe_organizer',
+
 				'testimonial',
 				'frm_display',
 				'mec_esb',

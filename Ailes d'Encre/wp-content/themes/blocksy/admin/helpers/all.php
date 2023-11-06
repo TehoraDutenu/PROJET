@@ -30,7 +30,11 @@ function blocksy_add_early_inline_style_in_gutenberg($cb) {
 	add_action(
 		'admin_print_styles',
 		function () use ($cb) {
-			if (! get_current_screen()->is_block_editor) {
+			if (
+				! get_current_screen()
+				||
+				! get_current_screen()->is_block_editor
+			) {
 				return;
 			}
 

@@ -22,3 +22,61 @@ img {
     width: 100% !important;
 }
 
+/* -- Navigation -- */
+/* - Menu - */
+
+ul.custom-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul.custom-menu li {
+    margin-right: 20px;
+    position: relative;
+}
+
+ul.custom-menu li:last-child {
+    margin-right: 0;
+}
+
+ul.custom-menu li a {
+    color: #333;
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+}
+
+/*  - Sous-menu - */
+
+ul.custom-menu ul {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0,0,0,.2);
+    display: none;
+    left: 0;
+    min-width: 200px;
+    position: absolute;
+    top: 100%;
+    z-index: 999;
+}
+
+ul.custom-menu ul li {
+    position: relative;
+}
+
+ul.custom-menu ul li a {
+    color: #333;
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+}
+
+/* - Déploiement des sous-menus - */
+ul.custom-menu li:hover > ul {
+    display: block;
+    top: 100%;
+    left: 0;
+}
+

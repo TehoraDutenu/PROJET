@@ -147,6 +147,108 @@ watchOptionsWithPrefix({
 	},
 })
 
+const imageBorderVariables = [
+	{
+		selector: applyPrefixFor('.entry-card', prefix),
+		type: 'spacing',
+		variable: 'imageBorderRadius',
+		responsive: true,
+		extractValue: () => {
+			const card_type = getOptionFor('card_type', prefix)
+			const card_spacing = maybePromoteScalarValueIntoResponsive(
+				getOptionFor('card_spacing', prefix)
+			)
+			const cardBorder = maybePromoteScalarValueIntoResponsive(
+				getOptionFor('cardBorder', prefix)
+			)
+			const cardRadius = JSON.parse(
+				JSON.stringify(
+					maybePromoteScalarValueIntoResponsive(
+						getOptionFor('cardRadius', prefix)
+					)
+				)
+			)
+
+			const archive_order = getOptionFor('archive_order', prefix)
+
+			let didChange = false
+
+			const featured_image_settings = getOptionFor(
+				'archive_order',
+				prefix
+			).find(({ id }) => id === 'featured_image')
+
+			const is_boundles = featured_image_settings.is_boundless || 'yes'
+
+			if (card_type === 'boxed' || card_type === 'cover') {
+				;['desktop', 'tablet', 'mobile'].forEach((device) => {
+					Object.keys(cardRadius[device]).forEach((key) => {
+						if (!['top', 'bottom', 'left', 'right'].includes(key)) {
+							return
+						}
+
+						let maybeWidth = 0
+
+						if (
+							cardBorder[device] &&
+							cardBorder[device]['style'] !== 'none' &&
+							cardBorder[device]['width'] > 0
+						) {
+							maybeWidth = cardBorder[device].width
+						}
+
+						if (card_type === 'boxed' && is_boundles !== 'yes') {
+							maybeWidth = card_spacing[device]
+						}
+
+						if (maybeWidth > 0) {
+							cardRadius[device][
+								key
+							] = `calc(${cardRadius[device][key]} - ${maybeWidth}px)`
+
+							didChange = true
+						}
+					})
+				})
+
+				if (didChange) {
+					return cardRadius
+				}
+			}
+
+			return 'CT_CSS_SKIP_RULE'
+		},
+	},
+
+	{
+		selector: applyPrefixFor('[data-cards] .entry-card', prefix),
+		variable: 'card-inner-spacing',
+		responsive: true,
+		unit: 'px',
+		extractValue: () => getOptionFor('card_spacing', prefix),
+	},
+
+	{
+		selector: applyPrefixFor('.entry-card', prefix),
+		type: 'spacing',
+		variable: 'borderRadius',
+		responsive: true,
+		extractValue: () => {
+			const cardRadius = getOptionFor('cardRadius', prefix)
+
+			return cardRadius
+		},
+	},
+	{
+		selector: applyPrefixFor('.entry-card', prefix),
+		variable: 'card-border',
+		type: 'border',
+		responsive: true,
+		skip_none: true,
+		extractValue: () => getOptionFor('cardBorder', prefix),
+	},
+]
+
 export const getPostListingVariables = () => ({
 	...typographyOption({
 		id: `${prefix}_cardTitleFont`,
@@ -204,7 +306,7 @@ export const getPostListingVariables = () => ({
 			}
 		})
 
-		return variables
+		return [...variables, ...imageBorderVariables]
 	},
 
 	[`${prefix}_columns`]: [
@@ -385,14 +487,6 @@ export const getPostListingVariables = () => ({
 		responsive: true,
 	}),
 
-	[`${prefix}_cardBorder`]: {
-		selector: applyPrefixFor('.entry-card', prefix),
-		variable: 'card-border',
-		type: 'border',
-		responsive: true,
-		skip_none: true,
-	},
-
 	[`${prefix}_cardDivider`]: {
 		selector: applyPrefixFor('[data-cards="simple"] .entry-card', prefix),
 		variable: 'card-border',
@@ -439,19 +533,15 @@ export const getPostListingVariables = () => ({
 		unit: 'px',
 	},
 
-	[`${prefix}_card_spacing`]: {
-		selector: applyPrefixFor('[data-cards] .entry-card', prefix),
-		variable: 'card-inner-spacing',
-		responsive: true,
-		unit: 'px',
-	},
-
-	[`${prefix}_cardRadius`]: {
-		selector: applyPrefixFor('.entry-card', prefix),
-		type: 'spacing',
-		variable: 'borderRadius',
-		responsive: true,
-	},
+	...withKeys(
+		[
+			`${prefix}_card_spacing`,
+			`${prefix}_cardRadius`,
+			`${prefix}_cardBorder`,
+			`${prefix}_card_type`,
+		],
+		imageBorderVariables
+	),
 
 	[`${prefix}_cardShadow`]: {
 		selector: applyPrefixFor('.entry-card', prefix),

@@ -1,5 +1,9 @@
 import ctEvents from 'ct-events'
 import { areWeDealingWithSafari } from '../main'
+import { loadStyle } from '../helpers'
+
+// idle | loading | loaded
+let stylesState = 'idle'
 
 export const mount = (backTop) => {
 	if (backTop.hasListener) {
@@ -17,9 +21,25 @@ export const mount = (backTop) => {
 
 		if (!backTop) return
 
-		window.scrollY > 500
-			? backTop.classList.add('ct-show')
-			: backTop.classList.remove('ct-show')
+		if (window.scrollY > 300) {
+			if (stylesState === 'loaded') {
+				backTop.classList.add('ct-show')
+			}
+
+			if (stylesState === 'idle') {
+				stylesState = 'loading'
+				loadStyle(ct_localizations.dynamic_styles.back_to_top).then(
+					() => {
+						backTop.removeAttribute('hidden')
+
+						stylesState = 'loaded'
+						backTop.classList.add('ct-show')
+					}
+				)
+			}
+		} else {
+			backTop.classList.remove('ct-show')
+		}
 	}
 
 	compute()

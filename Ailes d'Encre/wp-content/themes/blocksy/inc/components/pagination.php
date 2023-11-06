@@ -190,6 +190,22 @@ if (! function_exists('blocksy_display_posts_pagination')) {
 				continue;
 			}
 
+			if (strpos($matches[0], 'next') !== false) {
+				$link = str_replace(
+					'page-numbers"',
+					'page-numbers" rel="next"',
+					$link
+				);
+			}
+
+			if (strpos($matches[0], 'prev') !== false) {
+				$link = str_replace(
+					'page-numbers"',
+					'page-numbers" rel="prev"',
+					$link
+				);
+			}
+
 			if (
 				$args['pagination_type'] === 'next_prev'
 				&&

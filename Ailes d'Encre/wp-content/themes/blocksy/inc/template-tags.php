@@ -550,7 +550,7 @@ function blocksy_related_posts($location = null) {
 			<?php while ($query->have_posts()) { ?>
 				<?php $query->the_post(); ?>
 
-				<article <?php echo blocksy_schema_org_definitions('creative_work') ?>>
+				<article <?php echo blocksy_schema_org_definitions('creative_work:related_posts') ?>>
 					<?php
 						do_action('blocksy:single:related_posts:card:top');
 

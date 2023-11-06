@@ -275,8 +275,8 @@ if ($card_type === 'simple') {
 
 // boxed card
 if ($card_type === 'boxed' || $card_type === 'cover') {
-
 	$card_spacing = get_theme_mod($prefix . '_card_spacing', 30);
+	$card_spacing_expanded = blocksy_expand_responsive_value($card_spacing);
 
 	if ($card_spacing !== 30) {
 		blocksy_output_responsive([
@@ -307,13 +307,17 @@ if ($card_type === 'boxed' || $card_type === 'cover') {
 		'responsive' => true,
 	]);
 
+	$cardBorder = blocksy_expand_responsive_value(
+		get_theme_mod($prefix . '_cardBorder')
+	);
+
 	blocksy_output_border([
 		'css' => $css,
 		'tablet_css' => $tablet_css,
 		'mobile_css' => $mobile_css,
 		'selector' => blocksy_prefix_selector('.entry-card', $prefix),
 		'variableName' => 'card-border',
-		'value' => get_theme_mod($prefix . '_cardBorder'),
+		'value' => $cardBorder,
 		'default' => [
 			'width' => 1,
 			'style' => 'none',
@@ -326,18 +330,84 @@ if ($card_type === 'boxed' || $card_type === 'cover') {
 	]);
 
 	// Border radius
+	$cardRadius = blocksy_expand_responsive_value(get_theme_mod(
+		$prefix . '_cardRadius',
+		blocksy_spacing_value([
+			'linked' => true,
+		])
+	));
+
 	blocksy_output_spacing([
 		'css' => $css,
 		'tablet_css' => $tablet_css,
 		'mobile_css' => $mobile_css,
 		'selector' => blocksy_prefix_selector('.entry-card', $prefix),
 		'property' => 'borderRadius',
-		'value' => get_theme_mod($prefix . '_cardRadius',
-			blocksy_spacing_value([
-				'linked' => true,
-			])
-		)
+		'value' => $cardRadius,
 	]);
+
+	$archive_order = apply_filters(
+		'blocksy:posts-listing:archive-order',
+		get_theme_mod(
+			$prefix . '_archive_order',
+			[]
+		)
+	);
+
+	$featured_image_settings = null;
+
+	foreach (array_reverse($archive_order) as $index => $value) {
+		if ($value['id'] === 'featured_image') {
+			$featured_image_settings = $value;
+		}
+	}
+
+	$devices = ['desktop', 'tablet', 'mobile'];
+	$should_apply = false;
+	$is_boundles = blocksy_default_akg(
+		'is_boundless',
+		$featured_image_settings,
+		'yes'
+	);
+
+	foreach ($devices as $device) {
+		foreach ($cardRadius[$device] as $key => $value) {
+			if (! in_array($key, ['top', 'bottom', 'left', 'right'])) {
+				continue;
+			}
+
+			$maybeWidth = 0;
+
+			if (
+				$cardBorder[$device]
+				&&
+				$cardBorder[$device]['style'] !== 'none'
+				&&
+				$cardBorder[$device]['width'] > 0) {
+				$maybeWidth = $cardBorder[$device]['width'];
+			}
+
+			if ($card_type === 'boxed' && $is_boundles !== 'yes') {
+				$maybeWidth = $card_spacing_expanded[$device];
+			}
+
+			if ($maybeWidth > 0) {
+				$cardRadius[$device][$key] = 'calc(' . $value . ' - ' . $maybeWidth . 'px)';
+				$should_apply = true;
+			}
+		}
+	}
+
+	if ($should_apply) {
+		blocksy_output_spacing([
+			'css' => $css,
+			'tablet_css' => $tablet_css,
+			'mobile_css' => $mobile_css,
+			'selector' => blocksy_prefix_selector('.entry-card', $prefix),
+			'property' => 'imageBorderRadius',
+			'value' => $cardRadius,
+		]);
+	}
 
 	// Box shadow
 	blocksy_output_box_shadow([
@@ -478,7 +548,7 @@ if ($cards_gap !== 30) {
 
 // content alignment
 $horizontal_alignment = get_theme_mod(
-	$prefix. '_content_horizontal_alignment', 
+	$prefix. '_content_horizontal_alignment',
 	'CT_CSS_SKIP_RULE'
 );
 

@@ -49,7 +49,7 @@ function blocksy_output_back_to_top_link() {
 	<a href="#main-container" class="<?php echo esc_attr($class) ?>"
 		data-shape="<?php echo esc_attr($shape) ?>"
 		data-alignment="<?php echo esc_attr($alignment) ?>"
-		title="<?php echo esc_attr__('Go to top', 'blocksy') ?>" aria-label="<?php echo esc_attr__('Go to top', 'blocksy') ?>">
+		title="<?php echo esc_attr__('Go to top', 'blocksy') ?>" aria-label="<?php echo esc_attr__('Go to top', 'blocksy') ?>" hidden>
 
 		<?php
 			/**

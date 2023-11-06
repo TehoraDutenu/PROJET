@@ -16,8 +16,21 @@
 
 <body>
     <header class="bg-success text-white p-3">
+
+        <!-- Nom du site -->
         <a href="<?php echo get_bloginfo('wpurl') ?>">
             <h2> <?php echo get_bloginfo('name') ?> </h2>
         </a>
         <em class="blog-description"> <?php echo get_bloginfo('description') ?> </em>
+
+        <!-- Menu de navigation -->
+        <?php wp_nav_menu(
+            array(
+                "theme_location" => "menu-sup", //on indique le menu à afficher
+                "menu_class" => "custom-menu", //ajout de la class pour le css
+                "container" => false,
+                "walker" => new Depth_menu() //récupèration de notre template du menu
+            )
+        )
+        ?>
     </header>

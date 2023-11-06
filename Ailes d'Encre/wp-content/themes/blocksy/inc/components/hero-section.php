@@ -70,7 +70,11 @@ if (! function_exists('blocksy_get_page_title_source')) {
 
 		$default_value = 'yes';
 
-		if ($prefix === 'blog') {
+		if (
+			$prefix === 'blog'
+			||
+			$prefix === 'tribe_events_single'
+		) {
 			$default_value = 'no';
 		}
 

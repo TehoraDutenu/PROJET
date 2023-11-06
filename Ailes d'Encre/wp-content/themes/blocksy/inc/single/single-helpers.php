@@ -4,6 +4,31 @@ require get_template_directory() . '/inc/single/excerpt.php';
 require get_template_directory() . '/inc/single/page-elements.php';
 require get_template_directory() . '/inc/single/comments.php';
 
+if ( ! function_exists( 'blocksy_get_avatar_url' ) ) {
+	function blocksy_get_avatar_url($avatar_size, $author_id = null) {
+		if (! $author_id) {
+			$author_id = blocksy_get_author_id();
+		}
+		
+		$avatar_id = null;
+		// user registration plugin
+		if (function_exists('ur_replace_gravatar_image')) {
+			$avatar_id = get_user_meta($author_id, 'user_registration_profile_pic_url', true);
+		}
+
+		if (! $avatar_id) {
+			return get_avatar_url(
+				$author_id,
+				[
+					'size' => $avatar_size
+				]
+			);
+		}
+
+		return wp_get_attachment_url($avatar_id);
+	}
+}
+
 if ( ! function_exists( 'blocksy_get_author_id' ) ) {
 	function blocksy_get_author_id() {
 		$author_id = get_queried_object_id();
@@ -447,7 +472,7 @@ if (! function_exists('blocksy_get_featured_image_output')) {
 			blocksy_get_post_options(),
 			'no'
 		) === 'yes') {
-		return '';
+			return '';
 		}
 
 		if (! has_post_thumbnail()) {

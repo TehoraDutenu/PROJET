@@ -160,7 +160,11 @@ class Blocksy_Manager {
 				),
 				'search_lazy' => blocksy_cdn_url(
 					get_template_directory_uri() . '/static/bundle/non-critical-search-styles.min.css'
-				)
+				),
+
+				'back_to_top' => blocksy_cdn_url(
+					get_template_directory_uri() . '/static/bundle/back-to-top.min.css'
+				),
 			],
 
 			'dynamic_styles_selectors' => []

@@ -12,26 +12,6 @@ add_filter('widget_nav_menu_args', function ($nav_menu_args) {
 	return $nav_menu_args;
 }, 10, 1);
 
-add_action(
-	'dynamic_sidebar_before',
-	function () {
-		ob_start();
-	}
-);
-
-add_action(
-	'dynamic_sidebar_after',
-	function () {
-		$text = str_replace(
-			'textwidget',
-			'textwidget entry-content',
-			ob_get_clean()
-		);
-
-		echo $text;
-	}
-);
-
 if (! function_exists('blocksy_get_sidebar_to_render')) {
 	function blocksy_get_sidebar_to_render() {
 		if (class_exists('BlocksySidebarsManager')) {
@@ -110,6 +90,22 @@ if (! function_exists('blocksy_get_single_page_structure')) {
 				||
 				! function_exists('tutor')
 			)
+			&&
+			(
+				$prefix !== 'tribe_events_single'
+				&&
+				class_exists('Tribe__Events__Main')
+				||
+				! class_exists('Tribe__Events__Main')
+			)
+			&&
+			(
+				$prefix !== 'tribe_events_archive'
+				&&
+				class_exists('Tribe__Events__Main')
+				||
+				! class_exists('Tribe__Events__Main')
+			)
 		) {
 			$result = 'none';
 		} else {
@@ -171,7 +167,13 @@ if (! function_exists('blocksy_sidebar_position_unfiltered')) {
 			return 'none';
 		}
 
-		$is_dokan_store = class_exists('WeDevs_Dokan') && function_exists('dokan_is_store_page') && dokan_is_store_page();
+		$is_dokan_store = (
+			class_exists('WeDevs_Dokan')
+			&&
+			function_exists('dokan_is_store_page')
+			&&
+			dokan_is_store_page()
+		);
 
 		if ($is_dokan_store) {
 			return 'none';
@@ -184,6 +186,26 @@ if (! function_exists('blocksy_sidebar_position_unfiltered')) {
 		$blog_post_structure = blocksy_listing_page_structure([
 			'prefix' => $prefix
 		]);
+
+		$allows_custom_sidebar = (
+			$prefix !== 'courses_archive'
+			&&
+			function_exists('tutor')
+			||
+			! function_exists('tutor')
+		) && (
+			$prefix !== 'tribe_events_single'
+			&&
+			class_exists('Tribe__Events__Main')
+			||
+			! class_exists('Tribe__Events__Main')
+		) && (
+			$prefix !== 'tribe_events_archive'
+			&&
+			class_exists('Tribe__Events__Main')
+			||
+			! class_exists('Tribe__Events__Main')
+		);
 
 		if (
 			strpos($prefix, '_archive') !== false
@@ -198,13 +220,7 @@ if (! function_exists('blocksy_sidebar_position_unfiltered')) {
 			||
 			$prefix === 'woo_categories'
 		) {
-			if (
-				$prefix !== 'courses_archive'
-				&&
-				function_exists('tutor')
-				||
-				! function_exists('tutor')
-			) {
+			if ($allows_custom_sidebar) {
 				if (
 					get_theme_mod($prefix . '_has_sidebar', 'no') === 'no'
 					||
@@ -226,13 +242,7 @@ if (! function_exists('blocksy_sidebar_position_unfiltered')) {
 			&&
 			strpos($prefix, '_single') === false
 			&&
-			(
-				$prefix !== 'courses_archive'
-				&&
-				function_exists('tutor')
-				||
-				! function_exists('tutor')
-			)
+			$allows_custom_sidebar
 		) {
 			return 'right';
 		}

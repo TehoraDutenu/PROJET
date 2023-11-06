@@ -51,7 +51,6 @@ if (function_exists('is_buddypress')) {
 }
 
 if (function_exists('tutor_course_enrolled_lead_info')) {
-
 	$options[blocksy_rand_md5()] = [
 		'type' => 'ct-group-title',
 		'title' => __( 'Tutor LMS', 'blocksy' ),
@@ -71,13 +70,38 @@ if (function_exists('tutor_course_enrolled_lead_info')) {
 	];
 }
 
+if (class_exists('Tribe__Events__Main')) {
+	$options[blocksy_rand_md5()] = [
+		'type' => 'ct-group-title',
+		'title' => __('The Events Calendar', 'blocksy'),
+		'priority' => 2.5,
+	];
+
+	$options['post_type_archive_tribe_events'] = [
+		'title' => __('Archive', 'blocksy'),
+		'container' => ['priority' => 2.5],
+		'options' => blocksy_get_options(
+			'integrations/the-events-calendar/archive',
+			[]
+		),
+	];
+
+	$options['post_type_single_tribe_events'] = [
+		'title' => __('Single', 'blocksy'),
+		'container' => ['priority' => 2.5],
+		'options' => blocksy_get_options(
+			'integrations/the-events-calendar/single',
+			[]
+		),
+	];
+}
+
 foreach ($custom_post_types as $post_type) {
 	$post_type_object = get_post_type_object($post_type);
 
 	if (! $post_type_object) {
 		continue;
 	}
-
 
 	$cpt_archive = apply_filters(
 		'blocksy:custom_post_types:archive-options',

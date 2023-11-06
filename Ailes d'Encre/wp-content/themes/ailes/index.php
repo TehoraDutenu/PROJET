@@ -14,7 +14,7 @@
             ?>
 
         </div>
-        <?php get_sidebar(); ?>
+        <?php get_sidebar(); ?> <!-- Dernières sorties en widget -->
     </div>
 </main>
 

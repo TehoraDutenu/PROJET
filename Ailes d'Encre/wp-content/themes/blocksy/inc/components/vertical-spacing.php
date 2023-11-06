@@ -16,7 +16,7 @@ function blocksy_get_v_spacing($args = []) {
 
 	if (is_singular() || blocksy_is_page([
 		'blog_is_page' => false
-	])) {
+	]) || $prefix === 'tribe_events_archive') {
 		$post_options = blocksy_get_post_options();
 
 		$page_vertical_spacing_source = blocksy_default_akg(

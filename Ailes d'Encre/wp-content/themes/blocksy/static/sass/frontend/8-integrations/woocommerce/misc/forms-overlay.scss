@@ -1,6 +1,7 @@
 .cart_totals,
+.woocommerce-checkout,
 .woocommerce-cart-form,
-.woocommerce-mini-cart-item  {
+.woocommerce-mini-cart-item {
 
 	&.processing {
 		cursor: wait;
@@ -10,9 +11,9 @@
 		> * {
 			pointer-events: none;
 		}
+	}
 
-		.blockUI {
-			display: none !important;
-		}
+	.blockUI {
+		display: none !important;
 	}
 }

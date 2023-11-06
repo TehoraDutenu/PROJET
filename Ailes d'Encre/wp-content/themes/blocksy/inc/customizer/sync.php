@@ -137,6 +137,38 @@ function blocksy_replace_current_template() {
 	$template = apply_filters('template_include', $template);
 	$theme_directory = get_template_directory();
 
+		if (
+			class_exists('Tribe__Events__Main')
+			&&
+			(
+				tribe_is_event()
+				||
+				is_singular('tribe_event_series')
+				||
+				is_singular('tribe_organizer')
+				||
+				tribe_is_venue()
+			)
+		) {
+			$actual_prefix = 'tribe_events_single';
+		}
+
+		if (
+			class_exists('Tribe__Events__Main')
+			&&
+			(
+				tribe_is_events_home()
+				||
+				tribe_is_showing_all()
+				||
+				is_tax('tec_venue_category')
+				||
+				is_archive('tribe_events')
+			)
+		) {
+			$actual_prefix = 'tribe_events_archive';
+		}
+
 	if (
 		is_singular()
 		&&
@@ -148,6 +180,28 @@ function blocksy_replace_current_template() {
 			function_exists('tutor_course_enrolled_lead_info')
 			||
 			! function_exists('tutor_course_enrolled_lead_info')
+		)
+		&&
+		(
+			! (
+				tribe_is_events_home()
+				||
+				tribe_is_showing_all()
+				||
+				is_tax('tec_venue_category')
+				||
+				is_archive('tribe_events')
+				||
+				tribe_is_event()
+				||
+				is_singular('tribe_event_series')
+				||
+				is_singular('tribe_organizer')
+				||
+				tribe_is_venue()
+			) && class_exists('Tribe__Events__Main')
+			||
+			! class_exists('Tribe__Events__Main')
 		)
 	) {
 		ob_start();
@@ -162,7 +216,6 @@ function blocksy_replace_current_template() {
 
 		return ob_get_clean();
 	}
-
 
 	if (
 		strpos($template, $theme_directory) !== false

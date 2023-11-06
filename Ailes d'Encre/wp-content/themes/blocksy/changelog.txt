@@ -1,3 +1,20 @@
+1.9.10: 2023-11-02
+- Fix: PHP warning for excerpt
+- Fix: Scroll to top CSS issue
+
+1.9.9: 2023-11-02
+- Improvement:  Better check for current screen for block editor styles output
+- Improvement: Better integration with WooCommerce All Products For Subscriptions plugin
+- Improvement: Add `rel="prev"` and `rel="next"` to pagination
+- Improvement: Correctly output schema markup on related posts
+- Improvement: Better compatibility with User Registration plugin and their custom profile avatars
+- Improvement: Cover and boxed card border radius improvement
+- Improvement: Dont recompute styles descriptor for posts/pages on every request in some edge cases
+- Improvement: Ensure Back to Top styles can bypass critical CSS filtering
+- Improvement: Ensure correct output of editor styles in the widget area option
+- Improvement: Better integration with The Events Calendar plugin
+- Fix: Hindi excerpts are not calculated correctly
+
 1.9.8: 2023-10-12
 - Improvement: Better integration with WooCommerce Subscriptions plugin
 - Improvement: WooCommerce spinner z-index conflict with sticky header

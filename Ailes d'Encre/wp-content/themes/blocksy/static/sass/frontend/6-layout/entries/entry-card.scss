@@ -66,9 +66,9 @@
 
 // Cover card
 [data-archive="default"][data-cards="cover"] .entry-card {
-	justify-content: var(--vertical-alignment);
 	position: relative;
 	min-height: var(--card-min-height, 400px);
+	justify-content: var(--vertical-alignment);
 
 	.ct-image-container {
 		position: absolute;

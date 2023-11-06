@@ -142,6 +142,11 @@ if (function_exists('is_buddypress')) {
 	$supported_post_types[] = 'buddypress';
 }
 
+if (class_exists('Tribe__Events__Main')) {
+	$supported_post_types[] = 'tribe_events_single';
+	$supported_post_types[] = 'tribe_events_archive';
+}
+
 foreach ($supported_post_types as $post_type) {
 	if (
 		$post_type !== 'single_blog_post'
@@ -151,6 +156,10 @@ foreach ($supported_post_types as $post_type) {
 		$post_type !== 'product'
 		&&
 		$post_type !== 'courses_archive'
+		&&
+		$post_type !== 'tribe_events_single'
+		&&
+		$post_type !== 'tribe_events_archive'
 	) {
 		$post_type .= '_single';
 	}
