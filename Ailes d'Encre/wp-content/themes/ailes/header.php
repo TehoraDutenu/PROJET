@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <header class="bg-success text-white p-3">
+    <header class="header bg-success text-white p-3">
 
         <!-- Nom du site -->
         <a href="<?php echo get_bloginfo('wpurl') ?>">

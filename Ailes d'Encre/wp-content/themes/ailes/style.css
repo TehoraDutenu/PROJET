@@ -74,9 +74,56 @@ ul.custom-menu ul li a {
 }
 
 /* - Déploiement des sous-menus - */
+
 ul.custom-menu li:hover > ul {
     display: block;
     top: 100%;
     left: 0;
 }
 
+/*  -- Menu sidebar -- */
+
+.blog-sidebar {
+    background-image: url('assets/images/bibliotheque.jpg');
+    background-repeat: round;
+}
+
+.sidebar-menu li a {
+    color: #eec272;
+    text-align: center;
+}
+
+.sidebar-menu li {
+    list-style-type: none;
+    margin: 0 50px;
+}
+
+.sidebar-module {
+    margin: 20px;
+    padding: 20px;
+    background-color: rgba(0,0,0,.8);
+}
+
+/* - Style pour les appareils mobiles - */
+
+@media(max-width: 768px){
+    ul.custom-menu{
+        flex-direction: column;
+    }
+
+    ul.custom-menu li{
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    ul.custom-menu li:last-child{
+        margin-bottom: 0; /* pour éviter le décalage du dernier élément */
+    }
+
+    ul.custom-menu li.menu-item-has-children:hover > ul{
+        display:block;
+        top:100%;
+        left:auto;
+        margin-top:0; /* pour éviter le décalage du sous-menu */
+    }
+}

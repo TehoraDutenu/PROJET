@@ -76,3 +76,42 @@ class Depth_menu extends Walker_Nav_Menu
         $output .= "</ul>";
     }
 }
+
+class Sidebar_menu extends Walker_Nav_Menu
+{
+    public function start_lvl(&$output, $depth = 0, $args = null)
+    {
+        $output .= "<ul>";
+    }
+    public function start_el(&$output, $data_object, $depth = 0, $args = null, $current_object_id = 0)
+    {
+        // - Titres et liens
+        $title = $data_object->title;
+        $permalink = $data_object->url;
+
+        // // - Indentation
+        // $indentation = str_repeat("\t", $depth);
+
+        // - Classes
+        $classes = empty($data_object->classes) ? array() : (array) $data_object->classes;
+        $class_name = join(' ', apply_filters('nav_menu_css_array', array_filter($classes), $data_object));
+
+        // - Construction
+        if ($depth > 0) {
+            $output .= '<li class="' . esc_attr($class_name) . '">';
+        } else {
+            $output .= '<li class="' . esc_attr($class_name) . '">';
+        }
+        $output .= '<a href="' . $permalink . '">' . $title . '</a>';
+    }
+
+    public function end_el(&$output, $data_object, $depth = 0, $args = null)
+    {
+        $output .= "</li>";
+    }
+
+    public function end_lvl(&$output, $depth = 0, $args = null)
+    {
+        $output .= "</ul>";
+    }
+}
