@@ -15,22 +15,24 @@
 </head>
 
 <body>
-    <header class="header bg-success text-white p-3">
+    <header class="text-dark p-4 ">
 
-        <!-- Nom du site -->
-        <a href="<?php echo get_bloginfo('wpurl') ?>">
-            <h2> <?php echo get_bloginfo('name') ?> </h2>
-        </a>
-        <em class="blog-description"> <?php echo get_bloginfo('description') ?> </em>
-
-        <!-- Menu de navigation -->
-        <?php wp_nav_menu(
-            array(
-                "theme_location" => "menu-sup", //on indique le menu à afficher
-                "menu_class" => "custom-menu", //ajout de la class pour le css
-                "container" => false,
-                "walker" => new Depth_menu() //récupèration de notre template du menu
+        <div class="header d-flex flex-column col-12 container-fluid">
+            <img src="<?php echo get_template_directory_uri() . '/assets/images/arbre.png' ?>" alt='banniere'>
+            <!-- Nom du site -->
+            <a href="<?php echo get_bloginfo('wpurl') ?>">
+                <h2> <?php echo get_bloginfo('name') ?> </h2>
+            </a>
+            <em class="blog-description"> <?php echo get_bloginfo('description') ?> </em>
+            <!-- Menu de navigation -->
+            <?php wp_nav_menu(
+                array(
+                    "theme_location" => "menu-sup",
+                    "menu_class" => "custom-menu",
+                    "container" => false,
+                    "walker" => new Depth_menu()
+                )
             )
-        )
-        ?>
+            ?>
+        </div>
     </header>
