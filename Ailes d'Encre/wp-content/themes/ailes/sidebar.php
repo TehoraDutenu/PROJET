@@ -3,6 +3,7 @@
 
 
     <div class="sidebar-module sidebar-module-insert">
+        <h3 class="sidebar-heading">Dernieres sorties</h3>
         <!-- Navigation sidebar -->
         <?php wp_nav_menu(
             array(

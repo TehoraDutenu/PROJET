@@ -115,3 +115,6 @@ class Sidebar_menu extends Walker_Nav_Menu
         $output .= "</ul>";
     }
 }
+
+// - Supprimer le label "Catégorie :" sur les pages catégories
+add_filter('get_the_archive_title_prefix', '__return_false');
