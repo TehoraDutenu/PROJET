@@ -1,4 +1,4 @@
-<div class="col-sm-3 offset-1 blog-sidebar bg-warning">
+<div class="col-sm-3 blog-sidebar bg-warning">
     <!-- Dernières sorties -->
 
 
