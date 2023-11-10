@@ -23,7 +23,7 @@ a:hover {
 .bloc-main {
     background-color: #5d403791;
     margin-left: 20px;
-    margin-right: 20px;
+    margin-right: 40px;
 }
 
 
@@ -80,7 +80,6 @@ ul.custom-menu ul {
 }
 
 ul.custom-menu ul li {
-    background-color: #eec272;
     list-style: none;
     position: relative;
 }
@@ -89,6 +88,10 @@ ul.custom-menu ul li a {
     color: #333;
     padding: 10px;
     text-decoration: none;
+}
+
+.sub-menu ul {
+    list-style: none;
 }
 
 
@@ -126,6 +129,7 @@ ul.custom-menu li:hover>ul {
     text-align: center;
     color: #eec272;
 }
+
 
 /* - Style pour les appareils mobiles - */
 

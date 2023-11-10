@@ -1,9 +1,9 @@
-<!-- Articles d'une catégorie donnée -->
+<!-- Contenu d'une page de post -->
 
 <div>
     <h3>
         <a href="<?php the_permalink() ?>">
-            <?php the_title() ?>
+            <h3 class="text-primary blog-post-title"><?php the_title() ?></h3>
         </a>
     </h3>
     <?php if ('post' === get_post_type()) : ?>
