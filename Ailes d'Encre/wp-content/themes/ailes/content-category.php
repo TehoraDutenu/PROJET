@@ -21,4 +21,5 @@
         <!-- Interpréter le code hexadécimal -->
         <?php esc_html_e("La suite &rarr;") ?>
     </a>
+    <hr>
 </div>

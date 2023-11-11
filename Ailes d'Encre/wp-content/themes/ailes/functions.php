@@ -1,6 +1,6 @@
 <?php
 
-// -- Menu de navigation (enregistrer, initialiser, activer et configurer dans le BO, designer)
+/* -- NAVIGATION (enregistrer, initialiser, activer et configurer dans le BO, designer) -- */
 
 // - Enregistrer le menu
 function register_menu()
@@ -18,26 +18,7 @@ function register_menu()
 // - Initialiser le menu
 add_action('init', 'register_menu');
 
-// - Designer le menu
-
-// class Simple_menu extends Walker_Nav_Menu
-// {
-//     public function start_el(&$output, $data_object, $depth = 0, $args = null, $current_object_id = 0)
-//     {
-//         $title = $data_object->title;
-//         $permalink = $data_object->url;
-
-//         $output .= "<div class='nav-item'>";
-//         $output .= "<a class='nav-link bg-warning text-dark border m-1 custom_a' href='$permalink'>";
-//         $output .= $title;
-//         $output .= "</a>";
-//     }
-
-//     public function end_el(&$output, $data_object, $depth = 0, $args = null)
-//     {
-//         $output .= "</div>";
-//     }
-// }
+// - Designer le/les menu(s) 
 class Depth_menu extends Walker_Nav_Menu
 {
     public function start_lvl(&$output, $depth = 0, $args = null)
@@ -116,5 +97,20 @@ class Sidebar_menu extends Walker_Nav_Menu
     }
 }
 
-// - Supprimer le label "Catégorie :" sur les pages de catégories
+
+/* -- Supprimer le label "Catégorie :" sur les pages de catégories -- */
 add_filter('get_the_archive_title_prefix', '__return_false');
+
+
+
+/* -- SHORTCODES -- */
+
+/* - Shortcode sans paramètres - */
+
+function monShortCode()
+{
+    // - Retourner le shortcode
+    return "<p>Mon shortcode</p>";
+}
+// - Ajouter le shortcode au thème, puis le [coller] dans un article/page
+add_shortcode('monShortcode', 'monShortCode'); // - nom, fonction
